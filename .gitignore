@@ -1,0 +1,27 @@
+
+# idea project file
+**/*.iml
+.idea
+
+# eclipse
+.project
+
+# generate files
+# im-applet
+src/main/webapp/CacheableResource/applet_v1_01/
+dist/
+src/main/webapp/rf_home/
+src/main/webapp/WEB-INF/classes/
+src/main/webapp/WEB-INF/spring/
+src/main/webapp/WEB-INF/lib/
+src/main/webapp/META-INF/MANIFEST.MF
+
+/bin/
+/.classpath
+/.project
+/.settings
+
+build.xml
+/out
+.DS_Store
+**/.DS_Store
