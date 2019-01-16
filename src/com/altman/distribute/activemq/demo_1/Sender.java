@@ -42,18 +42,25 @@ public class Sender {
 
         // 第五步：我们需要通过 Session 对象创建对象消息的发送和接受对象(生产者和消费者) MessageProducer/MessageConsumer
 
-        MessageProducer messageProducer = session.createProducer(destination);
+//        MessageProducer messageProducer = session.createProducer(destination);
+        MessageProducer messageProducer = session.createProducer(null);
 
         // 第六步：我们可以使用 MessageProducer 的 setDeliveryMode 方法为其设置持久化特性和非持久化特性
 
-        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
+//        messageProducer.setDeliveryMode(DeliveryMode.NON_PERSISTENT);
 
         // 第七步：最后我们使用 JMS 规范的 TextMessage 形式创建数据(通过 Sessino 对象)，并用 MessageProducer 的 send 方法发送数据。 同理客户端使用 receive 方法接收数据。 最后关闭 Connection对象
 
-        for (int i = 0; i < 5; i++) {
+        for (int i = 1; i <= 5; i++) {
             TextMessage textMessage = session.createTextMessage();
             textMessage.setText("from Sender: 我是消息内容，id为 " + i);
-            messageProducer.send(textMessage);
+//            messageProducer.send(textMessage);
+            // 参数1 目的地
+            // 参数2 消息
+            // 参数3 是否持久化
+            // 参数4 优先级(0-9  0-4 表示普通，5-9 表示加急， 默认4)
+            // 参数5 消息在 mq 上的 存放时间
+            messageProducer.send(destination, textMessage, DeliveryMode.NON_PERSISTENT, i, 1000*60*2);
             System.out.println("Sender console: 【" + textMessage.getText() + "】");
         }
 
