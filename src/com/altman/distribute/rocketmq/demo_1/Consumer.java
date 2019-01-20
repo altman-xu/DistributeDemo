@@ -53,16 +53,16 @@ public class Consumer {
 
                         // 测试 consumer exception，触发消息重发 begin
 
-                        if ("Hello RocketMQ 4".equals(msgBody)){
-
-                            System.out.println("==============失败消息开始================");
-                            System.out.println(msgBody);
-                            System.out.println("==============失败消息结束================");
-
-                            // 异常代码，模拟 consumer 业务处理抛出异常
-                            int a = 1/0;
-
-                        }
+//                        if ("Hello RocketMQ 4".equals(msgBody)){
+//
+//                            System.out.println("==============失败消息开始================");
+//                            System.out.println(msgBody);
+//                            System.out.println("==============失败消息结束================");
+//
+//                            // 异常代码，模拟 consumer 业务处理抛出异常
+//                            int a = 1/0;
+//
+//                        }
                         // 测试 consumer exception，触发消息重发 end
 
 
