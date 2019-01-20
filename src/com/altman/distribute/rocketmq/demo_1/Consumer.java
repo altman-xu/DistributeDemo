@@ -30,7 +30,7 @@ public class Consumer {
         consumer.setNamesrvAddr("127.0.0.1:9876");
 
         /**
-         * 设置 Consumer 第一次启动是从队列头部开始消费还是队列尾部开始消费
+         * 设置 Consumer1 第一次启动是从队列头部开始消费还是队列尾部开始消费
          * 如果非第一次启动，那么按照上次消费的位置继续消费
          */
 
@@ -78,14 +78,14 @@ public class Consumer {
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
 
-                System.out.println("Consumer Console : " + Thread.currentThread().getName() + " Receive New Message: " + message);
+                System.out.println("Consumer1 Console : " + Thread.currentThread().getName() + " Receive New Message: " + message);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
 
         consumer.start();
 
-        System.out.println("Consumer started.");
+        System.out.println("Consumer1 started.");
 
     }
 }

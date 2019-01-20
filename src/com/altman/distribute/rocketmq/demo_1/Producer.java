@@ -12,7 +12,7 @@ import com.alibaba.rocketmq.common.message.Message;
  * Producer 消息重试有一种
  *      超时 : 如果超时，会根据设置的 setRetryTimesWhenSendFailed(10) 进行 10 次重发
  */
-public class Produce {
+public class Producer {
 
     public static void main(String[] args) throws MQClientException , InterruptedException{
 
