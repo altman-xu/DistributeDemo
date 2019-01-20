@@ -8,6 +8,9 @@ import com.alibaba.rocketmq.common.message.Message;
 /**
  * @author xuzhihua
  * @date 2019/1/20 10:49 AM
+ *
+ * Producer 消息重试有一种
+ *      超时 : 如果超时，会根据设置的 setRetryTimesWhenSendFailed(10) 进行 10 次重发
  */
 public class Produce {
 

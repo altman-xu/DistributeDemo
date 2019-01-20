@@ -14,6 +14,10 @@ import java.util.List;
 /**
  * @author xuzhihua
  * @date 2019/1/20 10:50 AM
+ *
+ * consumer 消息重试有两种
+ *      timeout : 如果是超时情况，mq会无限制重试，可能会给到集群中的其他 consumer
+ *      exception : return ConsumeConcurrentlyStatus.RECONSUME_LATER
  */
 public class Consumer {
 
@@ -49,6 +53,7 @@ public class Consumer {
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
                     // 抛异常时候 重试
+                    // 1s 2s 5s ... 2h 后进行消息重试
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
 
