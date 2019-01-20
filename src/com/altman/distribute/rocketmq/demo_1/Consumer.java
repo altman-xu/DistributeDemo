@@ -6,6 +6,7 @@ import com.alibaba.rocketmq.client.consumer.listener.ConsumeConcurrentlyStatus;
 import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently;
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
+import com.alibaba.rocketmq.common.message.Message;
 import com.alibaba.rocketmq.common.message.MessageExt;
 
 import java.io.UnsupportedEncodingException;
@@ -40,37 +41,40 @@ public class Consumer {
             @Override
             public ConsumeConcurrentlyStatus consumeMessage(List<MessageExt> list, ConsumeConcurrentlyContext consumeConcurrentlyContext) {
 
-
+                MessageExt message = list.get(0);
                 try {
-                    for (MessageExt msg : list) {
-                        String topic = msg.getTopic();
-                        String msgBody = null;
-                            msgBody = new String(msg.getBody(), "utf-8");
+                    String topic = message.getTopic();
+                    String msgBody = null;
+                        msgBody = new String(message.getBody(), "utf-8");
 
-                        String tags = msg.getTags();
-                        System.out.println("Consumer console : 收到消息: " + " topic : " + topic + " ,tags : " + tags + " ,msg : " + msgBody);
-
-
-                        // 测试 consumer exception，触发消息重发 begin
-
-//                        if ("Hello RocketMQ 4".equals(msgBody)){
-//
-//                            System.out.println("==============失败消息开始================");
-//                            System.out.println(msgBody);
-//                            System.out.println("==============失败消息结束================");
-//
-//                            // 异常代码，模拟 consumer 业务处理抛出异常
-//                            int a = 1/0;
-//
-//                        }
-                        // 测试 consumer exception，触发消息重发 end
+                    String tags = message.getTags();
+                    System.out.println("Consumer console : 收到消息: " + " topic : " + topic + " ,tags : " + tags + " ,msg : " + msgBody);
 
 
-                    }
-                } catch (UnsupportedEncodingException e) {
+                    // 测试 consumer exception，触发消息重发 begin
+
+                        if ("Hello RocketMQ 4".equals(msgBody)){
+
+                            System.out.println("==============失败消息开始================");
+                            System.out.println(msgBody + list);
+                            System.out.println("==============失败消息结束================");
+
+                            // 异常代码，模拟 consumer 业务处理抛出异常
+                            int a = 1/0;
+
+                        }
+                    // 测试 consumer exception，触发消息重发 end
+
+
+                } catch (Exception  e) {
                     e.printStackTrace();
                     // 抛异常时候 重试
-                    // 1s 2s 5s ... 2h 后进行消息重试
+                    // 会在时间间隔分别为 1s 2s 5s ... 2h 时进行消息重试
+                    if (message.getReconsumeTimes() == 2){
+                        // 如果重试两次后，还是失败，进行记录数据库日志操作
+                        System.out.println("==== 重试两次2后，还是没成功，记录数据库日志，返回消息消费成功 ===");
+                        return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
+                    }
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
 
