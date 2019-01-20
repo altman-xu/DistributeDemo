@@ -56,7 +56,7 @@ public class Consumer {
                         if ("Hello RocketMQ 4".equals(msgBody)){
 
                             System.out.println("==============失败消息开始================");
-                            System.out.println(msgBody + list);
+                            System.out.println(msgBody + message);
                             System.out.println("==============失败消息结束================");
 
                             // 异常代码，模拟 consumer 业务处理抛出异常
@@ -78,7 +78,7 @@ public class Consumer {
                     return ConsumeConcurrentlyStatus.RECONSUME_LATER;
                 }
 
-                System.out.println("Consumer Console : " + Thread.currentThread().getName() + " Receive New Message: " + list);
+                System.out.println("Consumer Console : " + Thread.currentThread().getName() + " Receive New Message: " + message);
                 return ConsumeConcurrentlyStatus.CONSUME_SUCCESS;
             }
         });
