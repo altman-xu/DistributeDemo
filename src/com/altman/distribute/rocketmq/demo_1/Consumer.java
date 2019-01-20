@@ -49,6 +49,23 @@ public class Consumer {
 
                         String tags = msg.getTags();
                         System.out.println("Consumer console : 收到消息: " + " topic : " + topic + " ,tags : " + tags + " ,msg : " + msgBody);
+
+
+                        // 测试 consumer exception，触发消息重发 begin
+
+                        if ("Hello RocketMQ 4".equals(msgBody)){
+
+                            System.out.println("==============失败消息开始================");
+                            System.out.println(msgBody);
+                            System.out.println("==============失败消息结束================");
+
+                            // 异常代码，模拟 consumer 业务处理抛出异常
+                            int a = 1/0;
+
+                        }
+                        // 测试 consumer exception，触发消息重发 end
+
+
                     }
                 } catch (UnsupportedEncodingException e) {
                     e.printStackTrace();
