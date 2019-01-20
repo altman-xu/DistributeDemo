@@ -41,7 +41,6 @@ public class Consumer {
                     for (MessageExt msg : list) {
                         String topic = msg.getTopic();
                         String msgBody = null;
-
                             msgBody = new String(msg.getBody(), "utf-8");
 
                         String tags = msg.getTags();
