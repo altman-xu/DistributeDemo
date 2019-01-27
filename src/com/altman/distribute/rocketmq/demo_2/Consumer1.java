@@ -7,6 +7,7 @@ import com.alibaba.rocketmq.client.consumer.listener.MessageListenerConcurrently
 import com.alibaba.rocketmq.client.exception.MQClientException;
 import com.alibaba.rocketmq.common.consumer.ConsumeFromWhere;
 import com.alibaba.rocketmq.common.message.MessageExt;
+import com.alibaba.rocketmq.common.protocol.heartbeat.MessageModel;
 import com.altman.distribute.rocketmq.demo_1.Consumer;
 
 import java.util.List;
@@ -33,6 +34,10 @@ public class Consumer1 {
 
             consumer.setConsumeFromWhere(ConsumeFromWhere.CONSUME_FROM_FIRST_OFFSET);
             consumer.subscribe("Topic_demo_2", "Tag1 || Tag2 || Tag3");
+
+            // 设置模式，如果不设置，默认就是 集群模式
+            // 下面设置模式为 广播模式
+//            consumer.setMessageModel(MessageModel.BROADCASTING);
 
             consumer.registerMessageListener(new Listener());
             consumer.start();
